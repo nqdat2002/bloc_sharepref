@@ -19,13 +19,9 @@ class Unauthenticated extends AuthState {}
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
   AuthBloc(this.authRepository) : super(AuthInitial()) {
-    on<AppStarted>((event, emit) {
-      final bool hasToken = authRepository.isLoggedIn() as bool;
-      if (hasToken) {
-        emit(Authenticated());
-      } else {
-        emit(Unauthenticated());
-      }
+    on<AppStarted>((event, emit) async {
+      final isLoggedIn = await authRepository.isLoggedIn();
+      emit(isLoggedIn ? Authenticated() : Unauthenticated());
     });
 
     on<LoggedIn>((event, emit) async {
