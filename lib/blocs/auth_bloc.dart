@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:bloc_sharepref/repositories/auth_repository.dart';
 
@@ -10,11 +11,9 @@ class LoggedOut extends AuthEvent{}
 abstract class AuthState {
 }
 
-
 class AuthInitial extends AuthState {}
 class Authenticated extends AuthState {}
 class Unauthenticated extends AuthState {}
-
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
