@@ -20,5 +20,15 @@ class AuthRepository {
     await Future.delayed(Duration(seconds: 1));
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_keyIsLoggedIn, false);
+  }  
+
+  Future<bool> login(String username, String password) async {
+    return false;
   }
+
+  Future<bool> signUp(String username, String password) async {
+    // Calling API
+    return false;
+  }
+
 }
