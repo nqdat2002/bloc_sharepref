@@ -2,23 +2,23 @@ import 'package:bloc_sharepref/blocs/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginScreen extends StatefulWidget {
-  final VoidCallback onSwitchToSignUp;
+class SignUpScreen extends StatefulWidget {
+  final VoidCallback onSwitchToLogin;
 
-  const LoginScreen({super.key, required this.onSwitchToSignUp});
+  const SignUpScreen({super.key, required this.onSwitchToLogin});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Login")),
+      appBar: AppBar(title: const Text("Sign Up")),
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state is AuthFailure) {
@@ -49,17 +49,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(
                   onPressed: () {
                     context.read<AuthenticationBloc>().add(
-                          LoginRequested(
+                          SignUpRequested(
                             username: _usernameController.text,
                             password: _passwordController.text,
                           ),
                         );
                   },
-                  child: const Text("Login"),
+                  child: const Text("Sign Up"),
                 ),
                 TextButton(
-                  onPressed: widget.onSwitchToSignUp,
-                  child: const Text("Don't have an account? Sign Up"),
+                  onPressed: widget.onSwitchToLogin,
+                  child: const Text("Already have an account? Login"),
                 ),
               ],
             ),
