@@ -31,7 +31,6 @@ class AuthFailure extends AuthenticationState {
   AuthFailure(this.message);
 }
 
-
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthRepository authRepository;
   final AuthBloc authBloc;
