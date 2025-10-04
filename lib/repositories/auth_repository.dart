@@ -23,12 +23,18 @@ class AuthRepository {
   }  
 
   Future<bool> login(String username, String password) async {
+    await Future.delayed(const Duration(seconds: 1));
+    if (username == 'admin' && password == '123456') {
+      await logIn();
+      return true;
+    }
     return false;
   }
 
   Future<bool> signUp(String username, String password) async {
-    // Calling API
-    return false;
+    await Future.delayed(const Duration(seconds: 1));
+    await logIn();
+    return true;
   }
 
 }
