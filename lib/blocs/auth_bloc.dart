@@ -10,19 +10,6 @@ class LoggedIn extends AuthEvent {}
 
 class LoggedOut extends AuthEvent {}
 
-class LogInRequested extends AuthEvent {
-  final String username;
-  final String password;
-
-  LogInRequested({required this.username, required this.password});
-}
-
-class SignUpRequested extends AuthEvent {
-  final String username;
-  final String password;
-
-  SignUpRequested({required this.username, required this.password});
-}
 
 abstract class AuthState {}
 
@@ -55,37 +42,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoggedOut>((event, emit) async {
       await authRepository.logOut();
       emit(Unauthenticated());
-    });
-
-    on<LogInRequested>((event, emit) async {
-      emit(AuthLoading());
-      try {
-        final success = await authRepository.login(event.username, event.password);
-        if (success) {
-          emit(Authenticated());
-        } else {
-          emit(AuthFailure("Login failed"));
-        }
-      } catch (e) {
-        emit(AuthFailure(e.toString()));
-      }
-    });
-
-    on<SignUpRequested>((event, emit) async {
-      emit(AuthLoading());
-      try {
-        final success = await authRepository.signUp(
-          event.username,
-          event.password,
-        );
-        if (success) {
-          emit(Authenticated());
-        } else {
-          emit(AuthFailure("Sign up failed"));
-        }
-      } catch (e) {
-        emit(AuthFailure(e.toString()));
-      }
     });
   }
 }
