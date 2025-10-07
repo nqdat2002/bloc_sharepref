@@ -18,7 +18,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Sign Up")),
+      backgroundColor: Colors.blue.shade50,
+      appBar: AppBar(
+        title: const Text("Sign Up"),
+        centerTitle: true,
+        backgroundColor: Colors.blue.shade700,
+        elevation: 0,
+      ),
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state is AuthFailure) {
@@ -32,36 +38,86 @@ class _SignUpScreenState extends State<SignUpScreen> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                TextField(
-                  controller: _usernameController,
-                  decoration: const InputDecoration(labelText: 'Username'),
+          return Center(
+            child: SingleChildScrollView(
+              child: Card(
+                elevation: 8,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                TextField(
-                  controller: _passwordController,
-                  decoration: const InputDecoration(labelText: 'Password'),
-                  obscureText: true,
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<AuthenticationBloc>().add(
-                          SignUpRequested(
-                            username: _usernameController.text,
-                            password: _passwordController.text,
+                margin: const EdgeInsets.symmetric(horizontal: 24),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircleAvatar(
+                        radius: 36,
+                        backgroundColor: Colors.blue.shade100,
+                        child: Icon(Icons.person_add, size: 40, color: Colors.blue.shade700),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        "Create Account",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade700,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      TextField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          labelText: 'Username',
+                          prefixIcon: Icon(Icons.person),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          prefixIcon: Icon(Icons.lock),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                        ),
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            backgroundColor: Colors.blue.shade700,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
-                        );
-                  },
-                  child: const Text("Sign Up"),
+                          onPressed: () {
+                            context.read<AuthenticationBloc>().add(
+                                  SignUpRequested(
+                                    username: _usernameController.text,
+                                    password: _passwordController.text,
+                                  ),
+                                );
+                          },
+                          child: const Text(
+                            "Sign Up",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      TextButton(
+                        onPressed: widget.onSwitchToLogin,
+                        child: const Text("Already have an account? Login"),
+                      ),
+                    ],
+                  ),
                 ),
-                TextButton(
-                  onPressed: widget.onSwitchToLogin,
-                  child: const Text("Already have an account? Login"),
-                ),
-              ],
+              ),
             ),
           );
         },
