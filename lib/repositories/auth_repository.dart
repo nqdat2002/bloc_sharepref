@@ -36,5 +36,4 @@ class AuthRepository {
     await logIn();
     return true;
   }
-
 }
