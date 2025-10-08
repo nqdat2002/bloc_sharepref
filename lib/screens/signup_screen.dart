@@ -18,11 +18,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade50,
+      backgroundColor: Colors.red.shade50,
       appBar: AppBar(
         title: const Text("Sign Up"),
         centerTitle: true,
-        backgroundColor: Colors.blue.shade700,
+        backgroundColor: Colors.red.shade700,
         elevation: 0,
       ),
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
@@ -53,8 +53,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       CircleAvatar(
                         radius: 36,
-                        backgroundColor: Colors.blue.shade100,
-                        child: Icon(Icons.person_add, size: 40, color: Colors.blue.shade700),
+                        backgroundColor: Colors.red.shade100,
+                        child: Icon(Icons.person_add, size: 40, color: Colors.red.shade700),
                       ),
                       const SizedBox(height: 16),
                       Text(
@@ -62,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade700,
+                          color: Colors.red.shade700,
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -70,8 +70,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: _usernameController,
                         decoration: InputDecoration(
                           labelText: 'Username',
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(Icons.person, color: Colors.red),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red.shade700),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -79,8 +83,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: _passwordController,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock),
+                          prefixIcon: Icon(Icons.lock, color: Colors.red),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red.shade700),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                         obscureText: true,
                       ),
@@ -90,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 14),
-                            backgroundColor: Colors.blue.shade700,
+                            backgroundColor: Colors.red.shade700,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -112,7 +120,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(height: 12),
                       TextButton(
                         onPressed: widget.onSwitchToLogin,
-                        child: const Text("Already have an account? Login"),
+                        child: Text(
+                          "Already have an account? Login",
+                          style: TextStyle(color: Colors.red.shade700),
+                        ),
                       ),
                     ],
                   ),

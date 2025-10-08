@@ -18,11 +18,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade50,
+      backgroundColor: Colors.red.shade50,
       appBar: AppBar(
         title: const Text("Login"),
         centerTitle: true,
-        backgroundColor: Colors.blue.shade700,
+        backgroundColor: Colors.red.shade700,
         elevation: 0,
       ),
       body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
@@ -54,8 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       // Logo hoặc icon
                       CircleAvatar(
                         radius: 36,
-                        backgroundColor: Colors.blue.shade100,
-                        child: Icon(Icons.lock_outline, size: 40, color: Colors.blue.shade700),
+                        backgroundColor: Colors.red.shade100,
+                        child: Icon(Icons.lock_outline, size: 40, color: Colors.red.shade700),
                       ),
                       const SizedBox(height: 16),
                       Text(
@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade700,
+                          color: Colors.red.shade700,
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -71,8 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _usernameController,
                         decoration: InputDecoration(
                           labelText: 'Username',
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(Icons.person, color: Colors.red),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red.shade700),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -80,8 +84,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _passwordController,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock),
+                          prefixIcon: Icon(Icons.lock, color: Colors.red),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red.shade700),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                         obscureText: true,
                       ),
@@ -91,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 14),
-                            backgroundColor: Colors.blue.shade700,
+                            backgroundColor: Colors.red.shade700,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -113,7 +121,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 12),
                       TextButton(
                         onPressed: widget.onSwitchToSignUp,
-                        child: const Text("Don't have an account? Sign Up"),
+                        child: Text(
+                          "Don't have an account? Sign Up",
+                          style: TextStyle(color: Colors.red.shade700),
+                        ),
                       ),
                     ],
                   ),
