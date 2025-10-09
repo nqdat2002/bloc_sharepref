@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:bloc_sharepref/blocs/authentication_bloc.dart';
 import 'package:bloc_sharepref/screens/auth_page_switcher.dart';
-import 'package:bloc_sharepref/screens/empty_screen.dart';
+import 'package:bloc_sharepref/screens/notifications_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/auth_bloc.dart' hide AuthInitial;
@@ -15,22 +16,49 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await FirebaseMessaging.instance.requestPermission();
 
   FirebaseMessaging.instance.getToken().then((value) {
-    print("Firebase Messaging Token: $value");
+    if (kDebugMode) {
+      print("Firebase Messaging Token: $value");
+    }
+  });
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    if (navigatorKey.currentContext != null) {
+      showDialog(
+        context: navigatorKey.currentContext!,
+        builder: (context) => AlertDialog(
+          title: const Text('Push Notification'),
+          content: Text(
+            message.notification?.body ?? 'No message',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   });
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-    print("On Message: $message");
+    if (kDebugMode) {
+      print("On Message OpenedApp: $message");
+    }
     Navigator.pushNamed(navigatorKey.currentContext!, '/push-page', arguments: {
       'message': json.encode(message.data),
     });
   });
 
 
-  FirebaseMessaging.instance.getInitialMessage().then((message) {
+  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
     if (message != null) {
-      print("Initial Message: $message");
+      if (kDebugMode) {
+        print("On Initial Message: $message");
+      }
       Navigator.pushNamed(navigatorKey.currentContext!, '/push-page', arguments: {
         'message': json.encode(message.data),
       });
@@ -44,7 +72,9 @@ void main() async {
 
 Future<void> _firebaseHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print("Handling a background message: ${message.messageId}");
+  if (kDebugMode) {
+    print("Handling a background message: $message");
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -80,13 +110,11 @@ class _MyAppState extends State<MyApp> {
             authRepository: authRepository,
           ),
         ),
-        // Các bloc khác nếu có
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
         routes: {
-          '/': (context) => const EmptyScreen(),
-          '/push-page': (context) => const HomeScreen(),
+          '/push-page': (context) => const NotificationsScreen(),
         },
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {

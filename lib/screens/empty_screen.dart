@@ -5,10 +5,12 @@ class EmptyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child:  Scaffold(
-      body: Center(
-          child: const Text("No Data"),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: const Text("No Data")
+        )
       ),
-    ));
+    );
   }
 }
