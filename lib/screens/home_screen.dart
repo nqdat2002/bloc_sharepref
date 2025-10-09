@@ -10,22 +10,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String message = "";
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    final arguments = ModalRoute.of(context)?.settings.arguments;
-    if (arguments != null && arguments is String) {
-      Map? pushArguments = arguments as Map?;
-
-      setState(() {
-        message = pushArguments?['message'] ?? "";
-      });
-    }
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,10 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
               context.read<AuthBloc>().add(LoggedOut());
             },
           ),
-
           IconButton(
             onPressed: (){
-
+              Navigator.pushNamed(context, '/push-page');
             }, 
             icon: const Icon(Icons.notifications),
           )
