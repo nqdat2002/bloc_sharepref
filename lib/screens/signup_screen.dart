@@ -14,6 +14,10 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +93,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderSide: BorderSide(color: Colors.red.shade700),
                             borderRadius: BorderRadius.circular(8),
                           ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.red.shade700,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                          ),
                         ),
-                        obscureText: true,
+                        obscureText: _obscurePassword,
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: _confirmPasswordController,
+                        decoration: InputDecoration(
+                          labelText: 'Confirm Password',
+                          prefixIcon: Icon(Icons.lock, color: Colors.red),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red.shade700),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.red.shade700,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                              });
+                            },
+                          ),
+                        ),
+                        obscureText: _obscureConfirmPassword,
                       ),
                       const SizedBox(height: 24),
                       SizedBox(
@@ -104,6 +144,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           onPressed: () {
+                            // Bạn có thể kiểm tra xác nhận mật khẩu ở đây nếu muốn
+                            if (_passwordController.text != _confirmPasswordController.text) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Passwords do not match")),
+                              );
+                              return;
+                            }
                             context.read<AuthenticationBloc>().add(
                                   SignUpRequested(
                                     username: _usernameController.text,
