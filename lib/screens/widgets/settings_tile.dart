@@ -18,7 +18,6 @@ class SettingsTile extends StatelessWidget {
       title: Text(title),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
       onTap: () {
-        // TODO: Xử lý khi nhấn vào
       },
     );
   }
