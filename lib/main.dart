@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:bloc_sharepref/blocs/authentication_bloc.dart';
 import 'package:bloc_sharepref/screens/auth_page_switcher.dart';
+import 'package:bloc_sharepref/screens/entry_point.dart';
 import 'package:bloc_sharepref/screens/notifications_screen.dart';
+import 'package:bloc_sharepref/screens/setting_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/auth_bloc.dart' hide AuthInitial;
 import 'repositories/auth_repository.dart';
-import 'screens/home_screen.dart';
+
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
@@ -115,18 +118,21 @@ class _MyAppState extends State<MyApp> {
         navigatorKey: navigatorKey,
         routes: {
           '/push-page': (context) => const NotificationsScreen(),
+          '/setting-page': (context) => const SettingsScreen()
         },
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             if (state is AuthInitial) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is Authenticated) {
-              return const HomeScreen();
+              return const EntryPoint();
             } else {
               return const AuthPageSwitcher();
             }
           },
         ),
+
+        
       ),
     );
   }
