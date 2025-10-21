@@ -78,7 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
       onSubmitted: _submit,
       textInputAction: TextInputAction.search,
       decoration: InputDecoration(
-        hintText: 'Tìm kiếm...',
+        hintText: 'Search...',
         prefixIcon: const Icon(Icons.search),
         suffixIcon: _controller.text.isEmpty
             ? null
@@ -150,7 +150,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Text(
-            'Nhập từ khóa để tìm kiếm',
+            'Type to search for items',
             style: TextStyle(color: Colors.grey.shade600),
           ),
         ),
@@ -162,7 +162,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Text(
-            'Không tìm thấy kết quả',
+            'No results found',
             style: TextStyle(color: Colors.grey.shade600),
           ),
         ),
