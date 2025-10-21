@@ -51,19 +51,29 @@ void main() async {
     if (kDebugMode) {
       print("On Message OpenedApp: $message");
     }
-    Navigator.pushNamed(navigatorKey.currentContext!, '/push-page', arguments: {
+    final args = {
       'message': json.encode(message.data),
-    });
+      'notification': message.notification != null
+          ? {'title': message.notification!.title, 'body': message.notification!.body}
+          : null,
+    };
+    // dùng navigatorKey.currentState để an toàn (context có thể null ở một số thời điểm)
+    navigatorKey.currentState?.pushNamed('/push-page', arguments: args);
   });
-
 
   FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
     if (message != null) {
       if (kDebugMode) {
         print("On Initial Message: $message");
       }
-      Navigator.pushNamed(navigatorKey.currentContext!, '/push-page', arguments: {
-        'message': json.encode(message.data),
+      // đẩy navigation sau khi widget tree đã dựng xong
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        navigatorKey.currentState?.pushNamed('/push-page', arguments: {
+          'message': json.encode(message.data),
+          'notification': message.notification != null
+              ? {'title': message.notification!.title, 'body': message.notification!.body}
+              : null,
+        });
       });
     }
   });
@@ -115,6 +125,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         routes: {
           '/push-page': (context) => const NotificationsScreen(),
