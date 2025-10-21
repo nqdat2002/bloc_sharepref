@@ -1,6 +1,6 @@
+import 'package:bloc_sharepref/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
-import 'notifications_screen.dart';
 import 'setting_screen.dart';
 
 class EntryPoint extends StatefulWidget {
@@ -15,7 +15,7 @@ class _EntryPointState extends State<EntryPoint> {
 
   final List<Widget> _pages = const [
     HomeScreen(),
-    NotificationsScreen(),
+    SearchScreen(),
     SettingsScreen(),
   ];
 
@@ -35,12 +35,12 @@ class _EntryPointState extends State<EntryPoint> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             activeIcon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Home Page',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_outlined),
-            activeIcon: Icon(Icons.notifications),
-            label: 'Notifications',
+            icon: Icon(Icons.search_outlined),
+            activeIcon: Icon(Icons.search),
+            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
