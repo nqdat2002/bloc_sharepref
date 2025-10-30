@@ -125,6 +125,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
+        debugShowMaterialGrid: false,
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         routes: {
@@ -142,8 +143,6 @@ class _MyAppState extends State<MyApp> {
             }
           },
         ),
-
-        
       ),
     );
   }

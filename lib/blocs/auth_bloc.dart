@@ -10,7 +10,6 @@ class LoggedIn extends AuthEvent {}
 
 class LoggedOut extends AuthEvent {}
 
-
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {}
