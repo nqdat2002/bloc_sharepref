@@ -8,16 +8,13 @@ class AuthPageSwitcher extends StatefulWidget {
   @override
   State<AuthPageSwitcher> createState() => _AuthPageSwitcherState();
 }
-
 class _AuthPageSwitcherState extends State<AuthPageSwitcher> {
   bool showLogin = true;
-
   void toggle() {
     setState(() {
       showLogin = !showLogin;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return showLogin
