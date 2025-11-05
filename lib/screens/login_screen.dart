@@ -14,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _obscurePassword = true; // Thêm biến này
+  bool _obscurePassword = true; // Default to obscure password
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is AuthLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-
           return Center(
             child: SingleChildScrollView(
               child: Card(
