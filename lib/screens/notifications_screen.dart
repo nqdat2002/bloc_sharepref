@@ -19,13 +19,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     if (arguments == null) return;
 
     String display = "";
-    // có thể nhận String (json), Map hoặc other
     if (arguments is String) {
       display = arguments;
     } else if (arguments is Map) {
       final msg = arguments['message'];
       if (msg is String) {
-        // nếu là json string, cố gắng decode để hiển thị đẹp hơn
         try {
           final decoded = json.decode(msg);
           if (decoded is Map || decoded is List) {
@@ -39,7 +37,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       } else {
         display = arguments.toString();
       }
-      // hiển thị notification title/body nếu có
       final notif = arguments['notification'];
       if (notif is Map) {
         final title = notif['title'] ?? '';
