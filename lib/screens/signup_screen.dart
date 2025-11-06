@@ -168,7 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       TextButton(
                         onPressed: widget.onSwitchToLogin,
                         child: Text(
-                          "Already have an account? Login",
+                          "You have already had an account? Pls Login",
                           style: TextStyle(color: Colors.red.shade700),
                         ),
                       ),
