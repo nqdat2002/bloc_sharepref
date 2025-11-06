@@ -51,7 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Logo hoặc icon
                       CircleAvatar(
                         radius: 36,
                         backgroundColor: Colors.red.shade100,
