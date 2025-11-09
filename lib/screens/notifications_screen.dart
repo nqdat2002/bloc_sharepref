@@ -14,7 +14,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     final arguments = ModalRoute.of(context)?.settings.arguments;
     if (arguments == null) return;
 
@@ -23,17 +22,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       display = arguments;
     } else if (arguments is Map) {
       final msg = arguments['message'];
-      if (msg is String) {
+      if (msg is String && msg.isNotEmpty) {
         try {
           final decoded = json.decode(msg);
-          if (decoded is Map || decoded is List) {
-            display = const JsonEncoder.withIndent('  ').convert(decoded);
-          } else {
-            display = msg;
-          }
+          display = const JsonEncoder.withIndent('  ').convert(decoded);
         } catch (_) {
           display = msg;
         }
+      } else if (arguments['data'] != null) {
+        display = arguments['data'].toString();
       } else {
         display = arguments.toString();
       }
@@ -49,28 +46,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       display = arguments.toString();
     }
 
-    setState(() {
-      message = display;
-    });
+    setState(() => message = display);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-        title: const Text("Notifications Screen"),
+        title: const Text('Notifications'),
+        backgroundColor: Colors.red.shade700,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Text(
-            message.isEmpty ? "No push message data" : message,
+            message.isEmpty ? 'No push message data' : message,
             style: const TextStyle(fontSize: 16),
           ),
         ),
