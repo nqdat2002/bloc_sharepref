@@ -5,7 +5,8 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favorites = <String>['Favorite A', 'Favorite B'];
+    final List<String> favorites = ['Favorite A', 'Favorite B', 'Favorite C'];
+
     return Scaffold(
       backgroundColor: Colors.red.shade50,
       appBar: AppBar(
@@ -14,17 +15,28 @@ class FavoritesScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: favorites.isEmpty
-          ? Center(child: Text('No favorites yet', style: TextStyle(color: Colors.red.shade700)))
+          ? Center(
+              child: Text('Không có mục yêu thích', style: TextStyle(color: Colors.red.shade700)),
+            )
           : ListView.separated(
               padding: const EdgeInsets.all(12),
               itemCount: favorites.length,
               separatorBuilder: (_, __) => const Divider(height: 0),
-              itemBuilder: (context, idx) {
-                final item = favorites[idx];
+              itemBuilder: (context, index) {
+                final item = favorites[index];
                 return ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.red.shade100, child: Icon(Icons.favorite, color: Colors.red.shade700)),
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.red.shade100,
+                    child: Icon(Icons.favorite, color: Colors.red.shade700),
+                  ),
                   title: Text(item),
-                  trailing: IconButton(icon: const Icon(Icons.delete_outline), onPressed: () {/* remove action */}),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete_outline),
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Xoá $item (demo)')));
+                    },
+                  ),
+                  onTap: () {},
                 );
               },
             ),
