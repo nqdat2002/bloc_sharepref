@@ -19,6 +19,7 @@ class AboutScreen extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             'Demo app built with Flutter. Thay nội dung này bằng mô tả thật của bạn.',
+            // ignore: deprecated_member_use
             style: TextStyle(color: Colors.red.shade700.withOpacity(0.9)),
           ),
           const SizedBox(height: 20),
