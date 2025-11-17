@@ -61,6 +61,7 @@ class EmptyScreen extends StatelessWidget {
                 Text(
                   subtitle,
                   textAlign: TextAlign.center,
+                  // ignore: deprecated_member_use
                   style: TextStyle(color: Colors.red.shade700.withOpacity(0.8)),
                 ),
                 const SizedBox(height: 20),
