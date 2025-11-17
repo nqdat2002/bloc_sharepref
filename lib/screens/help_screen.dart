@@ -19,6 +19,7 @@ class HelpScreen extends StatelessWidget {
           const Divider(),
           Text(
             'Nếu cần trợ giúp hãy liên hệ support@example.com',
+            // ignore: deprecated_member_use
             style: TextStyle(color: Colors.red.shade700.withOpacity(0.9)),
           ),
           const SizedBox(height: 16),
