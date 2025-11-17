@@ -32,6 +32,7 @@ class ProfileScreen extends StatelessWidget {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
+                // ignore: deprecated_member_use
                 Text(email, style: TextStyle(color: Colors.red.shade700.withOpacity(0.8))),
               ]),
             ),
