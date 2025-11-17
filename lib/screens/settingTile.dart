@@ -23,6 +23,7 @@ class HomeScreen extends StatelessWidget {
                 child: ListTile(
                   leading: CircleAvatar(backgroundColor: Colors.red.shade100, child: Icon(Icons.person, color: Colors.red.shade700)),
                   title: const Text('Welcome back'),
+                  // ignore: deprecated_member_use
                   subtitle: Text('Bạn đã đăng nhập thành công', style: TextStyle(color: Colors.red.shade700.withOpacity(0.8))),
                 ),
               ),
